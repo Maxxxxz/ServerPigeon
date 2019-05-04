@@ -3,11 +3,9 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 import secret
-
+import wakeonlan
 
 client = commands.Bot(command_prefix='spc@')
-
-random = 0
 
 prefix = 'spc@'
 
@@ -27,11 +25,12 @@ async def on_message(message):
         return                  #return if auther is self
     if message.guild == None:
         return                  #return if DM, definitely don't want these to be used by everyone
-
+        #change above to relay message to me
 
     if message.content.startswith(prefix):
         message.content = message.content[4:]
         if message.content.startswith('POWERON'):
+            wakeonlan.send_magic_packet(secret.macAdd)
             msg = '{0.author.mention} Powered Server PC on (no work yet)'.format(message)
             await message.channel.send(msg)
         if message.content.startswith('POWEROFF'):
@@ -42,17 +41,16 @@ async def on_message(message):
             await message.channel.send(msg)
         if message.content.startswith('help') or message.content.startswith('Help'):
             msg = """\
-            ```
-Server Pigeon Commands:
-spc@POWERON         ->      Powers on the remote PC
-spc@POWEROFF        ->      Powers off the remote PC
-spc@STORMOFF        ->      Powers off the remote PC allowing only admins to restart
-spc@GETGAMES        ->      Lists all games servers are available for
-spc@STARTSERVER #   ->      Starts the server for game name #
-spc@STOPSERVER #    ->      Stops the server for game name #
-spc@USAGEINFO       ->      Displays current system usage info
-            ```\
-            """
+            ```md
+# Server Pigeon Commands:
+# spc@POWERON         ->      Powers on the remote PC
+# spc@POWEROFF        ->      Powers off the remote PC
+# spc@STORMOFF        ->      Powers off the remote PC allowing only admins to restart
+# spc@GETGAMES        ->      Lists all games servers are available for
+# spc@STARTSERVER %   ->      Starts the server for game name %
+# spc@STOPSERVER %    ->      Stops the server for game name %
+# spc@USAGEINFO       ->      Displays current system usage info```
+"""
             await message.channel.send(msg)
 
 
