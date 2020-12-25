@@ -2,9 +2,10 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
-import secret
 import wakeonlan
 import os
+
+import load
 
 path_to_script = os.path.dirname(os.path.abspath(__file__))
 logfile = os.path.join(path_to_script, "log\\pigeonlog.log")
@@ -153,4 +154,6 @@ async def on_message(message):
 
         log(lMsg)
 
-client.run(secret.secret)
+load.load()
+
+client.run(load.TOKEN)
