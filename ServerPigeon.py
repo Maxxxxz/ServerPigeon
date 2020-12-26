@@ -6,14 +6,18 @@ import wakeonlan
 import os
 
 import load
+from CKServer import *
 
 path_to_script = os.path.dirname(os.path.abspath(__file__))
 logfile = os.path.join(path_to_script, "log\\pigeonlog.log")
 print("Logfile located at: " + logfile)
 
-client = commands.Bot(command_prefix='spc@')
-
 prefix = 'spc@'
+
+client = commands.Bot(command_prefix=prefix)
+
+# client.load_extension('.CKServer')
+client.add_cog(CKCog(client))
 
 STORMOFF = False    #for keeping pc locked during a storm
 LOCKED = False      #for keeping pc locked from potential abuse
@@ -35,14 +39,10 @@ async def on_ready():
     print(client.user.id)
     print('-----')
 
-def getStormStatus():
-    return STORMOFF
 
-def getLockStatus():
-    return LOCKED
 
-@client.event
-async def on_message(message):
+# @client.event
+async def __on_message(message):
     author = message.author
     if message.author == client.user:
         return                  #return if auther is self
