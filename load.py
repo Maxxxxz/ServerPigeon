@@ -17,4 +17,4 @@ def load():
     ADMINS = data["admins"]
     GAMES = data["games"]
 
-    print(TOKEN)
+    # print(TOKEN)
