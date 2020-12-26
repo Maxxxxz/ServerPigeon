@@ -7,6 +7,9 @@ class CKServer(commands.Cogs):
     def __init__(self, bot):
         self.bot = bot
 
-    
-    @commands.command()
-    async def 
+    # def setup(bot):
+    #     self.bot.add_cog(CKServer(bot))
+
+    @commands.command(name="showservices")
+    async def _showservices(ctx, arg):
+        await ctx.send(arg)
