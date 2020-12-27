@@ -11,10 +11,12 @@ def load():
     global MACADDR
     global ADMINS
     global GAMES
+    global URL
 
     TOKEN = data["token"]
     MACADDR = data["macaddress"]
     ADMINS = data["admins"]
     GAMES = data["games"]
+    URL = data["url"]
 
     # print(TOKEN)
