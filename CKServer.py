@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 from discord.ext.commands import Bot, Cog
 
+import apiRequests
+
 # Cog for all CKServer commands
 class CKCog(Cog):
     def __init__(self, bot):
@@ -28,7 +30,19 @@ class CKCog(Cog):
     #############################################################
     # Server PC Commands
 
+    # Perhaps use psutil?
+    @commands.command(name="usage")
+    async def _usageInfo(self, ctx):
+        apiRequests.doPost()
 
+        emb=discord.Embed(title="Server Pigeon", description="Usage information", color=0x0000ff)
+        emb.set_author(name="Server Pigeon", url="https://github.com/Maxxxxz")
+        emb.add_field(name="server 1", value="usage", inline=True)
+        emb.add_field(name="server 2", value="usage", inline=True)
+        emb.add_field(name="Pigeon PC", value="usage", inline=True)
+        emb.set_footer(text="Created by Maxxxxz")
+
+        await ctx.send(embed=emb)
 
     #############################################################
     
@@ -61,6 +75,26 @@ class CKCog(Cog):
     async def _unlock(self, ctx):
         # Check here if user in admins
         await ctx.send("Unlocked Server.")
+
+    #############################################################
+
+    #############################################################
+    # General
+
+    @commands.command(name="help")
+    async def _help(self, ctx):
+        emb=discord.Embed(title="", description="Commands for Server Pigeon", color=0x0000ff)
+        emb.set_author(name="Server Pigeon", url="https://github.com/Maxxxxz")
+        # emb.set_thumbnail(url="")
+        emb.add_field(name=self.bot.command_prefix + "help", value="Displays this message", inline=False)
+        emb.add_field(name=self.bot.command_prefix + "power {on/off}", value="Powers the remote PC on or off (omit for status)", inline=False)
+        emb.add_field(name=self.bot.command_prefix + "locked", value="Shows the locked status of the remote PC", inline=False)
+        emb.add_field(name=self.bot.command_prefix + "lock", value="Locks the remote PC commands to admins only", inline=False)
+        emb.add_field(name=self.bot.command_prefix + "unlock", value="Unlocks the remote PC commands to admins only", inline=False)
+        emb.add_field(name=self.bot.command_prefix + "usage", value="Shows the usage information for both the server PC and Server Pigeon's home.", inline=False)
+        emb.set_footer(text="Created by Maxxxxz")
+
+        await ctx.send(embed=emb)
 
     #############################################################
 
