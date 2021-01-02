@@ -8,6 +8,7 @@ import apiRequests
 class CKCog(Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.locked = False
         # self.bot.load_extension()
 
     #############################################################
@@ -64,16 +65,18 @@ class CKCog(Cog):
 
     @commands.command(name="locked")
     async def _lockstatus(self, ctx):
-        await ctx.send("Is server locked: {}")#.format(self.bot.isLocked))
+        await ctx.send("Is server locked: {}".format(self.locked))
 
     @commands.command(name="lock")
     async def _lock(self, ctx):
         # Check here if user in admins
+        self.locked = True
         await ctx.send("Locked Server.")
     
     @commands.command(name="unlock")
     async def _unlock(self, ctx):
         # Check here if user in admins
+        self.locked = False
         await ctx.send("Unlocked Server.")
 
     #############################################################
